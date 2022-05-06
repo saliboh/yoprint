@@ -4,7 +4,7 @@ FROM php:7.4-fpm-alpine
 ADD ./compose/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # ADD and set Group
-RUN addgroup -g 1000 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
+RUN addgroup -g 1001 laravel && adduser -G laravel -g laravel -s /bin/sh -D laravel
 
 # Create folder to run
 RUN mkdir -p /var/www/html
@@ -26,10 +26,10 @@ RUN apk add --no-cache \
 
 RUN docker-php-ext-configure gd \
     --with-freetype \
-    --with-jpeg 
+    --with-jpeg
 
 RUN NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-    docker-php-ext-install -j${NPROC} gd 
+    docker-php-ext-install -j${NPROC} gd
 
 RUN apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
 
